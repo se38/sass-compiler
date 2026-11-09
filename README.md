@@ -8,14 +8,11 @@ transport-specific objects.
 DATA(compiler) = NEW ycl_sass_compiler( ).
 
 TRY.
-    compiler->compile(
-      EXPORTING i_source = VALUE string_table(
-                  ( `$brand: #336699;` )
-                  ( `.nav {` )
-                  ( `  color: $brand;` )
-                  ( `  &:hover { color: darken($brand, 10%); }` )
-                  ( `}` ) )
-      IMPORTING e_css    = DATA(css) ).
+  DATA(css) = compiler->compile( VALUE string_table( ( `$brand: #336699;` )
+                                                     ( `.nav {` )
+                                                     ( `  color: $brand;` )
+                                                     ( `  &:hover { color: darken($brand, 10%); }` )
+                                                     ( `}` ) ) ).
   CATCH ycx_sass_error INTO DATA(error).
     " error->line and error->text describe what went wrong
 ENDTRY.
@@ -48,7 +45,7 @@ Package: `$SASS` (local, no transport required).
 METHODS compile
   IMPORTING i_source TYPE string_table
             i_sass   TYPE abap_bool DEFAULT abap_false
-  EXPORTING e_css    TYPE string_table
+  RETURNING VALUE(r_css) TYPE string_table
   RAISING   ycx_sass_error.
 ```
 
@@ -56,7 +53,7 @@ METHODS compile
 | --- | --- |
 | `i_source` | Source lines. |
 | `i_sass` | `abap_false` (default): input is SCSS. `abap_true`: input is indented SASS. |
-| `e_css` | Resulting CSS lines in Sass *expanded* style (one declaration per line, 2-space indent, blank line between rules). |
+| `r_css` | Resulting CSS lines in Sass *expanded* style (one declaration per line, 2-space indent, blank line between rules). |
 
 ## Supported features
 
