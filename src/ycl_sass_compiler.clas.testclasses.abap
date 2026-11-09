@@ -62,13 +62,13 @@ CLASS ltc_sass_compiler IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD check.
-    cut->compile( EXPORTING i_source = source i_sass = sass IMPORTING e_css = DATA(css) ).
+    DATA(css) = cut->compile( EXPORTING i_source = source i_sass = sass ).
     cl_abap_unit_assert=>assert_equals( act = css exp = expected ).
   ENDMETHOD.
 
   METHOD check_error.
     TRY.
-        cut->compile( EXPORTING i_source = source i_sass = sass IMPORTING e_css = DATA(css) ).
+        DATA(css) = cut->compile( EXPORTING i_source = source i_sass = sass ).
         cl_abap_unit_assert=>fail( `Expected exception ycx_sass_error` ).
       CATCH ycx_sass_error INTO DATA(error).
         cl_abap_unit_assert=>assert_true( xsdbool( error->text CS message_part ) ).
