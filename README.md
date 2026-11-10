@@ -37,8 +37,6 @@ Result in `css`:
 | `YCL_SASS_COMPILER` | Class | The compiler. Parser, evaluator and renderer are local classes of this class pool. Unit tests are in the test include (`LTC_SASS_COMPILER`). |
 | `YCX_SASS_ERROR` | Exception class (`CX_STATIC_CHECK`) | Raised on syntax and evaluation errors. Attributes `TEXT` and `LINE`. |
 
-Package: `$SASS` (local, no transport required).
-
 ## API
 
 ```abap
@@ -105,6 +103,6 @@ error cases with line numbers.
 ## Installation
 
 Create the two objects in your system from the sources (for example with
-[abapGit](https://abapgit.org/) once they are committed to a repository), or copy the
+[abapGit](https://abapgit.org/) ), or copy the
 source of `YCX_SASS_ERROR` first and `YCL_SASS_COMPILER` (main, local definitions,
 local implementations, local test classes) second.
